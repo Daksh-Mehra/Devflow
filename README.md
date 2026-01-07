@@ -26,3 +26,21 @@
     add a .prettierrc file in the root of your application. it is config file  
 
     create.prettierignore in the root of your app.it tell prettier we dont care about if they are pretty or not (not part of source code)
+
+    Linting is the process of statically analyzing code to detect errors and enforce coding standards.
+     The ESLint ignorePatterns rule excludes specified files or directories from the linting process, so ESLint does not analyze or report issues for them.
+
+# tailwind css setup 
+     we can extend the tailwind by directly defining the new themes etc in the global.css
+
+     The @custom-variant dark directive defines a custom dark-mode variant that applies styles when elements are inside a .dark parent, enabling class-based dark mode styling.
+
+     In Tailwind CSS v4, the default border color was changed to currentColor, making borders automatically inherit the text color unless explicitly overridden.
+
+# tailwind theming 
+     we can extend it more with 
+     @layer base(foundational styles)
+     @layer components
+     @layer utilities
+
+     npm i -D @tailwindcss/typography --legacy-peer-deps
