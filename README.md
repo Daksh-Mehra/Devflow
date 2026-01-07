@@ -44,3 +44,15 @@
      @layer utilities
 
      npm i -D @tailwindcss/typography --legacy-peer-deps
+
+# setup fonts
+
+     to set up fonts 
+     1.create fonts folder in the app and install fonts from the google font 
+     2.in the layout configure them (wieghts,src,variable)
+     3.use them in the layout body 
+     4.extend the fonts theme in the global css --font-inter=var(--font-inter)
+
+localFont remove the need of external network request to fetch fonts, improving website performance and ensuring font availability even without internet access.(by getting fonts from the local machine)
+
+${inter.className} make it the default font of the application
