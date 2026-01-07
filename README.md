@@ -56,3 +56,10 @@
 localFont remove the need of external network request to fetch fonts, improving website performance and ensuring font availability even without internet access.(by getting fonts from the local machine)
 
 ${inter.className} make it the default font of the application
+
+# assets and metadata
+
+     place all the assets in the public folder
+
+     metadata is the info about the website which heml web crawler to understand the content of the website and help in sep and visibility 
+
