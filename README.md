@@ -281,3 +281,9 @@ export default ThemeProvider
      the most important is to architect the code better so that anyone can undertstand the code(use meaningful variable names,files and folder names)
 
      implement the navbar as we want it in all the pages import it into the layout
+
+
+## creating theme toggle
+     implement theme.tsx and import it into the navbar 
+
+     in short to implement dark and light theme we first install next theme and create themeprovider which wrap the app in it and create navbar and theme toggle (use shadcn dark mode code)
