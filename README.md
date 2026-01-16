@@ -287,3 +287,41 @@ export default ThemeProvider
      implement theme.tsx and import it into the navbar 
 
      in short to implement dark and light theme we first install next theme and create themeprovider which wrap the app in it and create navbar and theme toggle (use shadcn dark mode code)
+
+# chapter 9 authentication
+  authentication helps us in identifying the user and authorization helps in determining the permission of the user
+
+  types of authentication
+
+  session based 
+  token based
+  basic auth
+  oath providers
+  
+  ## http state managemenet mechanisms
+
+  ## create auth routes
+
+  create sign-in and sign-out routes and make the navbar disappear in them using route group.each route is allowed to have its own layout 
+
+  so create two route groups auth with layout without navbar and root with layout with navbar
+
+  ## create auth layout and social auth form
+
+  create the auth layout and social auth form compoonent
+
+  ## setup nextauth with github provider
+    we are gonna use auth.js 
+    run "npm install next-auth@beta"
+
+    set up environment by running "npx auth secret" this will create .env.local file with auth secret
+
+    next create auth.ts and then create api route handlers and last a proxy.ts file
+
+    now register your app with github and get the id and secret and add github to the provider in the auth.ts file
+
+## implement github signin
+"npm install sonner"
+
+create constants->routes.ts which contain routes and their correspoding names 
+why do this ? this helps in maintaining the code(only one place to change for overall app effect)  and reduce typing errors
