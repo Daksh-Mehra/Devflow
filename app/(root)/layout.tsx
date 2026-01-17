@@ -8,7 +8,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
       <Navbar />
       {children}
     </main>
-  );
-};
+  )
+}
 
 export default RootLayout;
