@@ -1,7 +1,9 @@
+import ROUTES from "./routes";
+
 export const sidebarLinks = [
   {
     imgURL: "/icons/home.svg",
-    route: "/",
+    route: ROUTES.HOME,
     label: "Home",
   },
   {
