@@ -1,17 +1,17 @@
-import { model, models, Schema, Types } from "mongoose";
+import { HydratedDocument, model, models, Schema, Types } from "mongoose";
 
 export interface IVote {
   author: Types.ObjectId;
-  id: Types.ObjectId;
-  type: "question" | "answer";
-  voteType: "upvote" | "downvote";
+  actionId: Types.ObjectId;
+  actionType: string;
+  voteType: string;
 }
-
+export type IVoteDoc = HydratedDocument<IVote>;
 const VoteSchema = new Schema<IVote>(
   {
     author: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    id: { type: Schema.Types.ObjectId, required: true },
-    type: { type: String, enum: ["question", "answer"], required: true },
+    actionId: { type: Schema.Types.ObjectId, required: true },
+    actionType: { type: String, enum: ["question", "answer"], required: true },
     voteType: { type: String, enum: ["upvote", "downvote"], required: true },
   },
   { timestamps: true }
