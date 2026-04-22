@@ -17,7 +17,7 @@ export async function PUT(request:Request,{params}:{params:Promise<{id:string}>}
     if(name) ticket.name=name;
     if(status) ticket.status=status;
     if(type) ticket.type=type;
-    return NextResponse.json(ticket)
+    return NextResponse.json(tickets)
     
 };
 
