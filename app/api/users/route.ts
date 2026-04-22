@@ -5,7 +5,7 @@ import dbConnect from "@/lib/mongoose";
 import { UserSchema } from "@/lib/validations";
 import { APIErrorResponse } from "@/types/global";
 import { NextResponse } from "next/server";
-import { success } from "zod";
+
 
 export async function GET() {
   try {
