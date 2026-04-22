@@ -5,15 +5,14 @@ import dbConnect from "@/lib/mongoose";
 import { UserSchema } from "@/lib/validations";
 import { APIErrorResponse } from "@/types/global";
 import { NextResponse } from "next/server";
-import { ca } from "zod/v4/locales";
+
 
 // get /api/users/[id]
 export async function GET(_:Request,{params}:{params:Promise<{id:string}>}){
     const {id} = await params;
-    if(!id) throw new NotFoundError("User");
     try{
-        await dbConnect()
-        ;
+        await dbConnect();
+        if(!id) throw new NotFoundError("User");
         const user=await User.findById(id);
         if(!user) throw new NotFoundError("User");
         return NextResponse.json({success:true,data: user},{status:200});
@@ -27,9 +26,9 @@ export async function GET(_:Request,{params}:{params:Promise<{id:string}>}){
 
 export async function DELETE(_:Request,{params}:{params:Promise<{id:string}>}){
     const {id} = await params;
-    if(!id) throw new NotFoundError("User");
     try{
         await dbConnect();
+        if(!id) throw new NotFoundError("User");
         const user=await User.findByIdAndDelete(id);
         if(!user) throw new NotFoundError("User");
         return NextResponse.json({success:true,data: user},{status:200});
@@ -41,9 +40,9 @@ export async function DELETE(_:Request,{params}:{params:Promise<{id:string}>}){
 
 export async function PUT(request:Request,{params}:{params:Promise<{id:string}>}){
     const {id}=await params;
-    if(!id) throw new NotFoundError("User");
     try{
         await dbConnect();
+        if(!id) throw new NotFoundError("User");
         const body=await request.json();
         const validatedData=UserSchema.partial().parse(body);
         const updatedUser=await User.findByIdAndUpdate(id,validatedData,{new:true});
