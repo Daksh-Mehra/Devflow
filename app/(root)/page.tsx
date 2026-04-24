@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import QuestionCard from "@/components/cards/QuestionCard";
 import HomeFilter from "@/components/filters/HomeFilter";
 import LocalSearch from "@/components/search/LocalSearch";
@@ -43,24 +44,26 @@ const questions = [
   },
 ];
 
-const test= async()=>{
-  try {
-    // throw new ValidationError({title:["Required"],tag:["'JavaScript' is not valid tag"]})
-    return await api.users.getAll();
-  } catch (error) 
-  {
-    return handleError(error)
+// const test= async()=>{
+//   try {
+//     // throw new ValidationError({title:["Required"],tag:["'JavaScript' is not valid tag"]})
+//     return await api.users.getAll();
+//   } catch (error) 
+//   {
+//     return handleError(error)
     
-  }
-}
+//   }
+// }
 
 interface SearchParams{
   searchParams:Promise<{[key:string]:string}>
 }
 const Home =async ({searchParams}:SearchParams) => {
 
-  const result=await test();
-  console.log("API Result:", result); 
+  // const result=await test();
+
+  const session = await auth();
+  console.log("Session: ", session);
 
   const {query="",filter=""}=await searchParams;
 
