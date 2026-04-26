@@ -30,6 +30,8 @@
     Linting is the process of statically analyzing code to detect errors and enforce coding standards.
      The ESLint ignorePatterns rule excludes specified files or directories from the linting process, so ESLint does not analyze or report issues for them.
 
+     
+
 # tailwind css setup 
      we can extend the tailwind by directly defining the new themes etc in the global.css
 
@@ -74,7 +76,7 @@ ${inter.className} make it the default font of the application
        "next-env.d.ts": true
      }
 
-#chapter 6
+# chapter 6
 #file based routing
      nextjs comes with file based routing means folder are used to define to route and pages are used to create the ui for that route segment 
 
