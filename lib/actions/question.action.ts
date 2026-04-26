@@ -9,11 +9,11 @@ import Tag from "@/database/tag.model";
 import action from "../handlers/action";
 import handleError from "../handlers/error";
 import { AskQuestionSchema } from "../validations";
-import { ActionResponse, ErrorResponse } from "@/types/global";
+import { ActionResponse, ErrorResponse, Question_ } from "@/types/global";
 
 export async function createQuestion(
   params: CreateQuestionParams
-): Promise<ActionResponse> {
+): Promise<ActionResponse<Question_>> {
   const validationResult = await action({
     params,
     schema: AskQuestionSchema,
