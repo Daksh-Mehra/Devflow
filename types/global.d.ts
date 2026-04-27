@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-interface Tag {
+interface Tag_ {
   _id: string;
   name: string;
 }
@@ -15,7 +15,7 @@ interface Question_ {
   _id: string;
   title: string;
   content: string;
-  tags: Tag[];
+  tags: Tag_[];
   author: Author;
   upvotes: number;
   answers: number;
