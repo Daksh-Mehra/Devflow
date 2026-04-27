@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import TagCard from "./TagCard";
 import Metric from "../Metric";
-import { Question_, Tag } from "@/types/global";
+import { Question_, Tag_ } from "@/types/global";
 
 interface Props {
   question: Question_;
@@ -22,7 +22,7 @@ const QuestionCard = ({ question: { _id, title, tags, author, upvotes, answers, 
       </div>
 
       <div className="mt-3.5 flex w-full flex-wrap gap-2">
-        {tags.map((tag: Tag) => (
+        {tags.map((tag: Tag_) => (
           <TagCard key={tag._id} _id={tag._id} name={tag.name} compact />
         ))}
       </div>
@@ -35,6 +35,7 @@ const QuestionCard = ({ question: { _id, title, tags, author, upvotes, answers, 
           href={ROUTES.PROFILE(author._id)}
           textStyles="body-medium text-dark400_light700"
           isAuthor
+          titleStyles="max-sm:hidden"
         />
 
         <div className="flex items-center gap-3 max-sm:flex-wrap max-sm:justify-start">
