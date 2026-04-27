@@ -11,9 +11,10 @@ interface Props {
 route: string;
 imgSrc: string;
 placeholder: string;
+ iconPosition?: "left" | "right";
 otherClasses?: string;
 }
-const LocalSearch = ({imgSrc,placeholder,otherClasses,route}:Props) => {
+const LocalSearch = ({imgSrc,placeholder,otherClasses,route,iconPosition}:Props) => {
 
     const router=useRouter()
 
@@ -54,13 +55,15 @@ const LocalSearch = ({imgSrc,placeholder,otherClasses,route}:Props) => {
     <div className={`background-light800_darkgradient flex min-h-[56px] grow items-center gap-4 rounded-[10px] px-4
     ${otherClasses}`}>
 
+        {iconPosition === "left" && (
         <Image
-        src={imgSrc}
-        width={24}
-        height={24}
-        alt='Search'
-        className='cursor-pointer'
+          src={imgSrc}
+          width={24}
+          height={24}
+          alt="Search"
+          className="cursor-pointer"
         />
+      )}
         <Input
             type="text"
             placeholder={placeholder}
@@ -68,6 +71,15 @@ const LocalSearch = ({imgSrc,placeholder,otherClasses,route}:Props) => {
             onChange={(e)=>setsearch(e.target.value)}  
             className='paragraph-regular no-focus placeholder text-dark400_light700 border-none shadow-none outline-hidden'     
         ></Input>
+        {iconPosition === "right" && (
+        <Image
+          src={imgSrc}
+          width={15}
+          height={15}
+          alt="Search"
+          className="cursor-pointer"
+        />
+      )}
     </div>
   )
 }
