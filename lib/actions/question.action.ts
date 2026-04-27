@@ -10,8 +10,8 @@ import action from "../handlers/action";
 import handleError from "../handlers/error";
 import { AskQuestionSchema, EditQuestionSchema, GetQuestionSchema, IncrementViewsSchema, PaginatedSearchParamsSchema } from "../validations";
 import { ActionResponse, ErrorResponse, PaginatedSearchParams, Question_ } from "@/types/global";
-import { revalidatePath } from "next/cache";
-import ROUTES from "@/constants/routes";
+// import { revalidatePath } from "next/cache";
+// import ROUTES from "@/constants/routes";
 
 export async function createQuestion(
   params: CreateQuestionParams
@@ -309,7 +309,7 @@ export async function incrementViews(
 
     await question.save();
 
-    revalidatePath(ROUTES.QUESTION(questionId));
+    // revalidatePath(ROUTES.QUESTION(questionId));
 
     return {
       success: true,
