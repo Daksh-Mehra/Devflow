@@ -11,6 +11,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { after } from "next/server";
 import { getAnswers } from "@/lib/actions/answer.action";
+import AllAnswers from "@/components/answers/AllAnswers";
 
 // const sampleQuestion = {
 //   id: "q123",
@@ -115,7 +116,7 @@ const QuestionDetails = async ({ params }: RouteParams) => {
     filter: "latest",
   });
 
-  console.log("ANSWERS", answersResult);
+  // console.log("ANSWERS", answersResult);
   const { author, createdAt, answers, views, tags, content, title } = question;
 
   return (
@@ -168,6 +169,15 @@ const QuestionDetails = async ({ params }: RouteParams) => {
           <TagCard key={tag._id} _id={tag._id as string} name={tag.name} compact />
         ))}
       </div>
+
+      <section className="my-5">
+        <AllAnswers
+          data={answersResult?.answers}
+          success={areAnswersLoaded}
+          error={answersError}
+          totalAnswers={answersResult?.totalAnswers || 0}
+        />
+      </section>
       <section className="my-5">
          <AnswerForm questionId={question._id} />
       </section>
