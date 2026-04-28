@@ -13,6 +13,8 @@ import { after } from "next/server";
 import { getAnswers } from "@/lib/actions/answer.action";
 import AllAnswers from "@/components/answers/AllAnswers";
 import Votes from "@/components/votes/Votes";
+import { hasVoted } from "@/lib/actions/vote.action";
+import { Suspense } from "react";
 
 // const sampleQuestion = {
 //   id: "q123",
@@ -118,6 +120,11 @@ const QuestionDetails = async ({ params }: RouteParams) => {
   });
 
   // console.log("ANSWERS", answersResult);
+  const hasVotedPromise = hasVoted({
+    targetId: question._id,
+    targetType: "question",
+  });
+
   const { author, createdAt, answers, views, tags, content, title } = question;
 
   return (
@@ -132,12 +139,15 @@ const QuestionDetails = async ({ params }: RouteParams) => {
           </div>
 
           <div className="flex justify-end">
-           <Votes
-              upvotes={question.upvotes}
-              hasupVoted={true}
-              downvotes={question.downvotes}
-              hasdownVoted={false}
-            />
+           <Suspense fallback={<div>Loading...</div>}>
+              <Votes
+                targetType="question"
+                upvotes={question.upvotes}
+                downvotes={question.downvotes}
+                targetId={question._id}
+                hasVotedPromise={hasVotedPromise}
+              />
+            </Suspense>
           </div>
         </div>
 
