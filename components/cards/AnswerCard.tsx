@@ -7,7 +7,23 @@ import { Preview } from "../editor/Preview";
 import UserAvatar from "../UserAvatar";
 import { Answer_ } from "@/types/global";
 
-const AnswerCard = ({ _id, author, content, createdAt }: Answer_) => {
+import Votes from "../votes/Votes";
+import { hasVoted } from "@/lib/actions/vote.action";
+import { Suspense } from "react";
+
+const AnswerCard = ({
+  _id,
+  author,
+  content,
+  createdAt,
+  upvotes,
+  downvotes,
+}: Answer_) => {
+  const hasVotedPromise = hasVoted({
+    targetId: _id,
+    targetType: "answer",
+  });
+
   return (
     <article className="light-border border-b py-10">
       <span id={JSON.stringify(_id)} className="hash-span" />
@@ -36,7 +52,17 @@ const AnswerCard = ({ _id, author, content, createdAt }: Answer_) => {
           </Link>
         </div>
 
-        <div className="flex justify-end">Votes</div>
+        <div className="flex justify-end">
+          <Suspense fallback={<div>Loading...</div>}>
+            <Votes
+              targetType="answer"
+              targetId={_id}
+              hasVotedPromise={hasVotedPromise}
+              upvotes={upvotes}
+              downvotes={downvotes}
+            />
+          </Suspense>
+        </div>
       </div>
 
       <Preview content={content} />

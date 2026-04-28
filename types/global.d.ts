@@ -53,6 +53,8 @@ interface Answer_ {
   author: Author;
   content: string;
   createdAt: Date;
+  upvotes: number;
+  downvotes: number;
 }
 
 type SuccessResponse<T =null>=ActionResponse<T> & {success: true};
