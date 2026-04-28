@@ -47,6 +47,13 @@ interface PaginatedSearchParams {
   sort?: string;
 }
 
+interface Answer_ {
+  _id: string;
+  author: Author;
+  content: string;
+  createdAt: Date;
+}
+
 type SuccessResponse<T =null>=ActionResponse<T> & {success: true};
 type ErrorResponse=ActionResponse<undefined> & {success: false};
 
