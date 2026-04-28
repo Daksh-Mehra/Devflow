@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    optimizePackageImports: [
+      "@mdxeditor/editor",
+      "@radix-ui/react-icons",
+      "cm6-theme-basic-dark"
+    ],
+  },
   images:{
     remotePatterns:[
       {

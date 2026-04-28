@@ -1,6 +1,7 @@
 "use client";
 
 import type { ForwardedRef } from "react";
+import { useEffect, useState } from "react";
 import {
   headingsPlugin,
   listsPlugin,
@@ -27,13 +28,15 @@ import {
   tablePlugin,
   linkDialogPlugin,
   linkPlugin,
-  
 } from "@mdxeditor/editor";
-import {basicDark} from 'cm6-theme-basic-dark'
 import "@mdxeditor/editor/style.css";
-import './dark-editor.css'
+import "./dark-editor.css";
 import { useTheme } from "next-themes";
-import { Separator } from "@radix-ui/react-dropdown-menu";
+
+// ✅ simple separator — no library needed
+const Separator = () => (
+  <div className="w-px bg-gray-300 dark:bg-gray-600 mx-1 self-stretch" />
+);
 
 interface Props {
   value: string;
@@ -41,12 +44,23 @@ interface Props {
   editorRef: ForwardedRef<MDXEditorMethods> | null;
 }
 
-const Editor = ({ value, fieldChange, editorRef, ...props }: Props ) => {
+const Editor = ({ value, fieldChange, editorRef, ...props }: Props) => {
+  const { resolvedTheme } = useTheme();
+  const [theme, setTheme] = useState<any[]>([]);
 
-    const {resolvedTheme}=useTheme();
-    const theme=resolvedTheme==="dark"?[basicDark]:[];
+  // ✅ only load dark theme when needed, lazily
+  useEffect(() => {
+    if (resolvedTheme === "dark") {
+      import("cm6-theme-basic-dark").then((mod) => {
+        setTheme([mod.basicDark]);
+      });
+    } else {
+      setTheme([]);
+    }
+  }, [resolvedTheme]);
+
   return (
-      <MDXEditor
+    <MDXEditor
       key={resolvedTheme}
       ref={editorRef}
       markdown={value}
@@ -96,20 +110,15 @@ const Editor = ({ value, fieldChange, editorRef, ...props }: Props ) => {
                     <>
                       <UndoRedo />
                       <Separator />
-
                       <BoldItalicUnderlineToggles />
                       <Separator />
-
                       <ListsToggle />
                       <Separator />
-
                       <CreateLink />
                       <InsertImage />
                       <Separator />
-
                       <InsertTable />
                       <InsertThematicBreak />
-
                       <InsertCodeBlock />
                     </>
                   ),
