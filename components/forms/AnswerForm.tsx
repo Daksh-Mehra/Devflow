@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRef, useState ,useTransition} from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { string, z } from "zod";
 import { createAnswer } from "@/lib/actions/answer.action";
 import { toast } from "sonner";
 
@@ -20,14 +20,24 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { AnswerSchema } from "@/lib/validations";
+import { useSession } from "next-auth/react";
+import { api } from "@/lib/api";
 
 const Editor = dynamic(() => import("@/components/editor"), {
   ssr: false,
 });
 
-const AnswerForm = ({ questionId }: { questionId: string }) => {
+interface Props {
+  questionId: string;
+  questionTitle: string;
+  questionContent: string;
+}
+
+const AnswerForm = ({ questionId, questionTitle, questionContent }: Props) => {
   const [isAnswering, startAnsweringTransition] = useTransition();
   const [isAISubmitting, setIsAISubmitting] = useState(false);
+
+   const session = useSession();
 
   const editorRef = useRef<MDXEditorMethods>(null);
 
@@ -51,6 +61,9 @@ const AnswerForm = ({ questionId }: { questionId: string }) => {
 
         toast.success( "Your answer has been posted successfully",
         );
+        if (editorRef.current) {
+          editorRef.current.setMarkdown("");
+        }
       } else {
         toast.error("Error",{
           description: result.error?.message,
@@ -59,7 +72,53 @@ const AnswerForm = ({ questionId }: { questionId: string }) => {
       }
     });
   };
+ const generateAIAnswer = async () => {
+    if (session.status !== "authenticated") {
+      return toast.info( "Please log in",
+        {description: "You need to be logged in to use this feature",
+      });
+    }
 
+    setIsAISubmitting(true);
+
+    try {
+      const { success, data, error } = await api.ai.getAnswer(
+        questionTitle,
+        questionContent
+      );
+
+      if (!success) {
+        return toast.error(
+           "Error",{
+          description: error?.message,
+          
+        });
+      }
+
+      const formattedAnswer = data.replace(/<br>/g, " ").toString().trim();
+
+      if (editorRef.current) {
+        editorRef.current.setMarkdown(formattedAnswer);
+
+        form.setValue("content", formattedAnswer);
+        form.trigger("content");
+      }
+
+      toast.success(
+        "AI generated answer has been generated",
+      );
+    } catch (error) {
+      toast.error(
+        "Error",{
+        description:
+          error instanceof Error
+            ? error.message
+            : "There was a problem with your request"
+      });
+    } finally {
+      setIsAISubmitting(false);
+    }
+  };
   return (
     <div>
       <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-center sm:gap-2">
@@ -69,6 +128,7 @@ const AnswerForm = ({ questionId }: { questionId: string }) => {
         <Button
           className="btn light-border-2 gap-1.5 rounded-md border px-4 py-2.5 text-primary-500 shadow-none dark:text-primary-500"
           disabled={isAISubmitting}
+          onClick={generateAIAnswer}
         >
           {isAISubmitting ? (
             <>
