@@ -18,6 +18,7 @@ interface Question_ {
   tags: Tag_[];
   author: Author;
   upvotes: number;
+  downvotes: number;
   answers: number;
   views: number;
   createdAt: Date;

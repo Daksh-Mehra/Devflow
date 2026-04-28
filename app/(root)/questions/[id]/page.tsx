@@ -12,6 +12,7 @@ import { redirect } from "next/navigation";
 import { after } from "next/server";
 import { getAnswers } from "@/lib/actions/answer.action";
 import AllAnswers from "@/components/answers/AllAnswers";
+import Votes from "@/components/votes/Votes";
 
 // const sampleQuestion = {
 //   id: "q123",
@@ -131,7 +132,12 @@ const QuestionDetails = async ({ params }: RouteParams) => {
           </div>
 
           <div className="flex justify-end">
-            <p>Votes</p>
+           <Votes
+              upvotes={question.upvotes}
+              hasupVoted={true}
+              downvotes={question.downvotes}
+              hasdownVoted={false}
+            />
           </div>
         </div>
 
