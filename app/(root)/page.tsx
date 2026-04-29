@@ -9,6 +9,8 @@ import DataRenderer from "@/components/DataRenderer";
 import { EMPTY_QUESTION } from "@/constants/states";
 
 import Link from "next/link";
+import CommonFilter from "@/components/filters/CommonFilter";
+import { HomePageFilters } from "@/constants/filters";
 
 
 
@@ -52,12 +54,17 @@ const Home =async ({searchParams}:SearchParams) => {
     </Button> 
   </section>
 
-  <section className="mt-11">
+  <section className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
     <LocalSearch  imgSrc="/icons/search.svg"
     placeholder="Search questions..."
     otherClasses="flex-1"
     route='/'
     />
+    <CommonFilter
+          filters={HomePageFilters}
+          otherClasses="min-h-[56px] sm:min-w-[170px]"
+          containerClasses="hidden max-md:flex"
+        />
   </section>
   <HomeFilter />
   {/* <div className="mt-10 flex w-full flex-col gap-6">
