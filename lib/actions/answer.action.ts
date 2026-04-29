@@ -1,12 +1,12 @@
 "use server";
-
+import { after } from "next/server";
 import mongoose from "mongoose";
 import { revalidatePath } from "next/cache";
 
 import ROUTES from "@/constants/routes";
 import { Question, Vote } from "@/database";
 import Answer, { IAnswerDoc } from "@/database/answer.model";
-
+import { createInteraction } from "./interaction.action";
 import action from "../handlers/action";
 import handleError from "../handlers/error";
 import { AnswerServerSchema, DeleteAnswerSchema, GetAnswersSchema } from "../validations";
@@ -52,6 +52,16 @@ export async function createAnswer(
     // update the question answers count
     question.answers += 1;
     await question.save({ session });
+
+    // log the interaction
+    after(async () => {
+      await createInteraction({
+        action: "post",
+        actionId: newAnswer._id.toString(),
+        actionTarget: "answer",
+        authorId: userId as string,
+      });
+    });
 
     await session.commitTransaction();
 
@@ -163,6 +173,15 @@ export async function deleteAnswer(
 
     // delete the answer
     await Answer.findByIdAndDelete(answerId);
+
+    after(async () => {
+      await createInteraction({
+        action: "delete",
+        actionId: answerId,
+        actionTarget: "answer",
+        authorId: user?.id as string,
+      });
+    });
 
     revalidatePath(`/profile/${user?.id}`);
 
