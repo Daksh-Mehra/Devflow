@@ -57,6 +57,24 @@ interface Answer_ {
   downvotes: number;
 }
 
+interface User_ {
+  _id: string;
+  name: string;
+  username: string;
+  email: string;
+  bio?: string;
+  image?: string;
+  location?: string;
+  portfolio?: string;
+  reputation?: number;
+}
+
+interface Collection_ {
+  _id: string;
+  author: string | Author;
+  question: Question;
+}
+
 type SuccessResponse<T =null>=ActionResponse<T> & {success: true};
 type ErrorResponse=ActionResponse<undefined> & {success: false};
 
