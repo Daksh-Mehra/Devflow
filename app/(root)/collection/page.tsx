@@ -9,6 +9,8 @@ import { getSavedQuestions } from "@/lib/actions/collection.action";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { RouteParams } from "@/types/global";
+import CommonFilter from "@/components/filters/CommonFilter";
+import { CollectionFilters } from "@/constants/filters";
 
 const CollectionPage = async ({ searchParams }: RouteParams) => {
   const { page, pageSize, query, filter } = await searchParams;
@@ -40,6 +42,11 @@ const CollectionPage = async ({ searchParams }: RouteParams) => {
           imgSrc="/icons/search.svg"
           placeholder="Search amazing minds here..."
           otherClasses="flex-1"
+        />
+
+         <CommonFilter
+          filters={CollectionFilters}
+          otherClasses="min-h-[56px] sm:min-w-[170px]"
         />
 
         
