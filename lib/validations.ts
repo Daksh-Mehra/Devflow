@@ -1,5 +1,6 @@
 // /lib/validations.ts
 import { z } from 'zod';
+import { InteractionActionEnums } from "@/database/interaction.model";
 
 export const SignInSchema = z.object({
   email: z.email({ message: 'Please provide a valid email address.' }).min(1, { message: 'Email is required.' }),

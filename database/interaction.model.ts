@@ -6,11 +6,26 @@ export interface IInteraction {
     actionid:Types.ObjectId;
     actiontype:string;
 }
+
+export const InteractionActionEnums = [
+  "view",
+  "upvote",
+  "downvote",
+  "bookmark",
+  "post",
+  "edit",
+  "delete",
+  "search",
+] as const;
 export type IInteractionDoc = HydratedDocument<IInteraction>;
 const InteractionSchema = new Schema<IInteraction>({
     user:{type:Schema.Types.ObjectId,ref:"User",required:true},
-    action:{type:String,required:true},
-    actionid:{type:Schema.Types.ObjectId,required:true},
+   action: {
+      type: String,
+      enum: InteractionActionEnums,
+      required: true,
+    },
+    actionid: { type: Schema.Types.ObjectId, required: true }, // 'questionId', 'answerId',
     actiontype:{type:String,enum:["question","answer"],required:true},
 
 },{timestamps:true});
