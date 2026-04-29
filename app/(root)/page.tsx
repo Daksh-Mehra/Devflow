@@ -11,6 +11,7 @@ import { EMPTY_QUESTION } from "@/constants/states";
 import Link from "next/link";
 import CommonFilter from "@/components/filters/CommonFilter";
 import { HomePageFilters } from "@/constants/filters";
+import Pagination from "@/components/Pagination";
 
 
 
@@ -41,7 +42,7 @@ const Home =async ({searchParams}:SearchParams) => {
     filter: filter || "",
   });
 
-  const { questions } = data || {};
+  const { questions, isNext } = data || {};
 
 
   
@@ -86,7 +87,7 @@ const Home =async ({searchParams}:SearchParams) => {
         )}
       />
           
-      
+      <Pagination page={page} isNext={isNext || false} />
   </>
 };
 

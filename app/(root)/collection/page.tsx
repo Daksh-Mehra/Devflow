@@ -11,6 +11,7 @@ import { redirect } from "next/navigation";
 import { RouteParams } from "@/types/global";
 import CommonFilter from "@/components/filters/CommonFilter";
 import { CollectionFilters } from "@/constants/filters";
+import Pagination from "@/components/Pagination";
 
 const CollectionPage = async ({ searchParams }: RouteParams) => {
   const { page, pageSize, query, filter } = await searchParams;
@@ -65,6 +66,7 @@ const CollectionPage = async ({ searchParams }: RouteParams) => {
           </div>
         )}
       />
+        <Pagination page={page} isNext={isNext || false} />
     </>
   );
 };
