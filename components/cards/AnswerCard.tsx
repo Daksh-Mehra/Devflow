@@ -10,11 +10,13 @@ import { Answer_ } from "@/types/global";
 import Votes from "../votes/Votes";
 import { hasVoted } from "@/lib/actions/vote.action";
 import { Suspense } from "react";
+import EditDeleteAction from "../user/EditDeleteAction";
 
 
 interface Props extends Answer_ {
   containerClasses?: string;
   showReadMore?: boolean;
+   showActionBtns?: boolean;
 }
 const AnswerCard = ({
   _id,
@@ -26,6 +28,7 @@ const AnswerCard = ({
  question,
   containerClasses,
   showReadMore = false,
+  showActionBtns = false,
 }: Props) => {
   const hasVotedPromise = hasVoted({
     targetId: _id,
@@ -33,8 +36,16 @@ const AnswerCard = ({
   });
 
   return (
-    <article className={cn("light-border border-b py-10", containerClasses)}>
+    <article
+      className={cn("light-border border-b py-10 relative", containerClasses)}
+    >
       <span id={`answer-${_id}`} className="hash-span" />
+
+        {showActionBtns && (
+        <div className="background-light800 flex-center absolute -right-2 -top-5 size-9 rounded-full">
+          <EditDeleteAction type="Answer" itemId={_id} />
+        </div>
+      )}
 
 
       <div className="mb-5 flex flex-col-reverse justify-between gap-5 sm:flex-row sm:items-center sm:gap-2">
