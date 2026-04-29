@@ -23,7 +23,11 @@ interface User_ {
   reputation?: number;
   createdAt: Date;
 }
-
+interface BadgeCounts {
+  GOLD: number;
+  SILVER: number;
+  BRONZE: number;
+}
 interface Question_ {
   _id: string;
   title: string;
